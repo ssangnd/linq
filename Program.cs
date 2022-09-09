@@ -42,16 +42,25 @@
             new Product(6, "Giường ngủ", 500, new string[] {"Trắng"},               2),
             new Product(7, "Tủ áo",      600, new string[] {"Trắng"},               3),
         };
-            //select many
-            var result = products.SelectMany((p) =>
-            {
-                return p.Colors;
-            });
+            //min, max, sum, average
 
-            foreach (var item in result)
-            {
-                Console.WriteLine(item);
-            }
+            int[] numbers = { 1, 2, 4, 6, 4, 2, 8, 9 };
+            // Console.WriteLine(numbers.Min());
+            // filter largest even number
+
+            // Console.WriteLine(numbers.Where(n => n % 2 == 0).Max());
+            Console.WriteLine(numbers.Average());
+        
+
+            // var result = products.SelectMany((p) =>
+            // {
+            //     return p.Colors;
+            // });
+
+            // foreach (var item in result)
+            // {
+            //     Console.WriteLine(item);
+            // }
         }
     }
 }
