@@ -42,25 +42,39 @@
             new Product(6, "Giường ngủ", 500, new string[] {"Trắng"},               2),
             new Product(7, "Tủ áo",      600, new string[] {"Trắng"},               3),
         };
-            //min, max, sum, average
-
-            int[] numbers = { 1, 2, 4, 6, 4, 2, 8, 9 };
-            // Console.WriteLine(numbers.Min());
-            // filter largest even number
-
-            // Console.WriteLine(numbers.Where(n => n % 2 == 0).Max());
-            Console.WriteLine(numbers.Average());
-        
-
-            // var result = products.SelectMany((p) =>
-            // {
-            //     return p.Colors;
+            //join
+            //moi sp lay ra ten sp, hang sx, 
+            //nguon join vs tham so dau tien la nguon ket hop, thu 2 la du lieu nao trong product de ket hop
+            //du lieu nao trong nguon tham so thu nhat de ket hop
+            
+            // var query=products.Join(brands, p=>p.Brand, b=>b.ID,(p,b)=>{
+            //     return new {
+            //         Ten=p.Name,
+            //         Thuonghieu=b.Name,
+            //     };
             // });
-
-            // foreach (var item in result)
-            // {
+            
+            // foreach(var item in query){
             //     Console.WriteLine(item);
             // }
+
+            //GroupJoin
+
+            var query=brands.GroupJoin(products,b=>b.ID, p=>p.Brand, (brand, product)=>{
+                return new {
+                    Thuonghieu= brand.Name,
+                    Cacsanpham=product,
+                };
+            });
+
+            foreach (var item in query)
+            {
+                Console.WriteLine(item.Thuonghieu);
+                foreach (var p in item.Cacsanpham)
+                {
+                    Console.WriteLine(p);
+                }
+            }
         }
     }
 }
