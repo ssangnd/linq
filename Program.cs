@@ -42,32 +42,13 @@
             new Product(6, "Giường ngủ", 500, new string[] {"Trắng"},               2),
             new Product(7, "Tủ áo",      600, new string[] {"Trắng"},               3),
         };
-
-            //filter price equal 400
-
-            // var query = from p in products where p.Price == 400 select p;
-            // foreach (var item in query)
-            // {
-            //     Console.WriteLine(item);
-            // }
-
-            var result = products.Select(
-                (p) =>
-                {
-                    // return p;
-                    // return p.Price;
-
-                    //type anonymous
-                    return new
-                    {
-                        Ten = p.Name,
-                        Gia = p.Price
-                    };
-                }
-            );
-
-            foreach (var item in result)
-            {
+            //where
+            var result= products.Where((p)=>{
+                // return p.Name.Contains("tr");
+                return p.Price>=200 && p.Price<=300;
+            });
+            
+            foreach(var item in result){
                 Console.WriteLine(item);
             }
         }
