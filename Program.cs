@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace linq
+﻿namespace linq
 {
 
     public class Brand
@@ -35,7 +32,7 @@ namespace linq
             new Brand{ID = 4, Name = "Công ty CCC"},
         };
 
-        var products = new List<Product>()
+            var products = new List<Product>()
         {
             new Product(1, "Bàn trà",    400, new string[] {"Xám", "Xanh"},         2),
             new Product(2, "Tranh treo", 400, new string[] {"Vàng", "Xanh"},        1),
@@ -45,6 +42,34 @@ namespace linq
             new Product(6, "Giường ngủ", 500, new string[] {"Trắng"},               2),
             new Product(7, "Tủ áo",      600, new string[] {"Trắng"},               3),
         };
+
+            //filter price equal 400
+
+            // var query = from p in products where p.Price == 400 select p;
+            // foreach (var item in query)
+            // {
+            //     Console.WriteLine(item);
+            // }
+
+            var result = products.Select(
+                (p) =>
+                {
+                    // return p;
+                    // return p.Price;
+
+                    //type anonymous
+                    return new
+                    {
+                        Ten = p.Name,
+                        Gia = p.Price
+                    };
+                }
+            );
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
