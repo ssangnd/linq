@@ -42,13 +42,14 @@
             new Product(6, "Giường ngủ", 500, new string[] {"Trắng"},               2),
             new Product(7, "Tủ áo",      600, new string[] {"Trắng"},               3),
         };
-            //where
-            var result= products.Where((p)=>{
-                // return p.Name.Contains("tr");
-                return p.Price>=200 && p.Price<=300;
+            //select many
+            var result = products.SelectMany((p) =>
+            {
+                return p.Colors;
             });
-            
-            foreach(var item in result){
+
+            foreach (var item in result)
+            {
                 Console.WriteLine(item);
             }
         }
