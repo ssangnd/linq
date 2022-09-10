@@ -43,46 +43,20 @@
             new Product(7, "Tủ áo",      600, new string[] {"Trắng"},               3),
         };
             int[] numbers={1,2,3,4,5,6,7,8};
-            //take
-            // products.Take(4).ToList().ForEach(p=>Console.WriteLine(p));
-
-            //skip 
-            //bo di cac phan tu dau tien lay di cac phan tu con lai
             
-            // products.Skip(2).ToList().ForEach(p=>Console.WriteLine(p));
-
-            //sort
-            //OrderBy /OrderByDescending (max=>min)
-
-            // products.OrderBy(p=>p.Price).ToList().ForEach(p=>Console.WriteLine(p));
-            // products.OrderByDescending(p=>p.Price).ToList().ForEach(p=>Console.WriteLine(p));
-
-            //reverse
-
-            // numbers.Reverse().ToList().ForEach(n=>Console.WriteLine(n));
-
-            // GroupBY
-            //moi phan tu theo nhom
-            //nhom cac san pham theo gia
-            //voi moi phan tu trong product
-            // var query =products.GroupBy(p=>p.Price);
-            // foreach(var group in query){
-            //     Console.WriteLine(group.Key);//key dung de nhom
-            //     foreach (var item in group)
-            //     {
-            //         Console.WriteLine(item);
-            //     }
-            // }
-
-            //Distinct
-            //loai bo cung gia tri neu trung chi giu lay 1
-            //lay mau sac cua cac sp
-            var result= products.SelectMany(p=>p.Colors).Distinct().ToList();
-            foreach(var item in result){
-                Console.WriteLine(item);
-            }
-
+            //Single SingleOrDefault
+            //Single ktra cac phan tu thoa man dk neu co 1 kq thoa man dk logic thi tra ve phan tu do
+            //neu ko co hoac co nhieu hon 1 phan tu thoa man dk logic => phat sinh loi
             
+            var product= products.Single(p=>p.Price==600);// neu co 2 cai 400 phat sinh loi
+            //Console.WriteLine(product);
+
+            //TH ko muon phat sinh loi
+            var productDefault=products.SingleOrDefault(p=>p.Price==120);
+            //TH tim thay nhung nhieu loi
+    
+            Console.WriteLine(productDefault);
+
         }
     }
 }
