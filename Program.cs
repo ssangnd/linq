@@ -42,39 +42,47 @@
             new Product(6, "Giường ngủ", 500, new string[] {"Trắng"},               2),
             new Product(7, "Tủ áo",      600, new string[] {"Trắng"},               3),
         };
-            //join
-            //moi sp lay ra ten sp, hang sx, 
-            //nguon join vs tham so dau tien la nguon ket hop, thu 2 la du lieu nao trong product de ket hop
-            //du lieu nao trong nguon tham so thu nhat de ket hop
+            int[] numbers={1,2,3,4,5,6,7,8};
+            //take
+            // products.Take(4).ToList().ForEach(p=>Console.WriteLine(p));
+
+            //skip 
+            //bo di cac phan tu dau tien lay di cac phan tu con lai
             
-            // var query=products.Join(brands, p=>p.Brand, b=>b.ID,(p,b)=>{
-            //     return new {
-            //         Ten=p.Name,
-            //         Thuonghieu=b.Name,
-            //     };
-            // });
-            
-            // foreach(var item in query){
-            //     Console.WriteLine(item);
+            // products.Skip(2).ToList().ForEach(p=>Console.WriteLine(p));
+
+            //sort
+            //OrderBy /OrderByDescending (max=>min)
+
+            // products.OrderBy(p=>p.Price).ToList().ForEach(p=>Console.WriteLine(p));
+            // products.OrderByDescending(p=>p.Price).ToList().ForEach(p=>Console.WriteLine(p));
+
+            //reverse
+
+            // numbers.Reverse().ToList().ForEach(n=>Console.WriteLine(n));
+
+            // GroupBY
+            //moi phan tu theo nhom
+            //nhom cac san pham theo gia
+            //voi moi phan tu trong product
+            // var query =products.GroupBy(p=>p.Price);
+            // foreach(var group in query){
+            //     Console.WriteLine(group.Key);//key dung de nhom
+            //     foreach (var item in group)
+            //     {
+            //         Console.WriteLine(item);
+            //     }
             // }
 
-            //GroupJoin
-
-            var query=brands.GroupJoin(products,b=>b.ID, p=>p.Brand, (brand, product)=>{
-                return new {
-                    Thuonghieu= brand.Name,
-                    Cacsanpham=product,
-                };
-            });
-
-            foreach (var item in query)
-            {
-                Console.WriteLine(item.Thuonghieu);
-                foreach (var p in item.Cacsanpham)
-                {
-                    Console.WriteLine(p);
-                }
+            //Distinct
+            //loai bo cung gia tri neu trung chi giu lay 1
+            //lay mau sac cua cac sp
+            var result= products.SelectMany(p=>p.Colors).Distinct().ToList();
+            foreach(var item in result){
+                Console.WriteLine(item);
             }
+
+            
         }
     }
 }
