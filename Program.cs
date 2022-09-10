@@ -55,7 +55,18 @@
             var productDefault=products.SingleOrDefault(p=>p.Price==120);
             //TH tim thay nhung nhieu loi
     
-            Console.WriteLine(productDefault);
+            // Console.WriteLine(productDefault);
+            
+            //Any tra ve true neu thoa man dk logic
+            var p=products.Any(p=>p.Price==700);
+            // Console.WriteLine(p);
+            //All tra ve bool neu thoa man cac dk logic
+            var pAll=products.All(p=>p.Price>0);
+            // Console.WriteLine(pAll);
+
+            //Count
+            var pCount=products.Count(p=>p.Price>=200);
+            Console.WriteLine(pCount);
 
         }
     }
