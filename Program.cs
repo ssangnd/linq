@@ -44,30 +44,128 @@
         };
             int[] numbers={1,2,3,4,5,6,7,8};
             
-            //Single SingleOrDefault
-            //Single ktra cac phan tu thoa man dk neu co 1 kq thoa man dk logic thi tra ve phan tu do
-            //neu ko co hoac co nhieu hon 1 phan tu thoa man dk logic => phat sinh loi
+            //In ra ten sp, ten thuong hieu, co gia (300-400) gia giam dan
+        //   products.Where(p=>p.Price>=300 && p.Price<=400).OrderByDescending(p=>p.Price)
+        //     .Join(brands, p=>p.Brand, b=>b.ID, (p,b)=>{
+        //         return new {
+        //             Ten=p.Name,
+        //             ThuongHieu=b.Name
+        //         };
+        //     }).ToList().ForEach(x=>Console.WriteLine(x));
+
+            /*
+                1) Xac dinh nguon: from tenphantu in IEnumerable (array, list)
+                ...Where, order by
+                2) Lay du lieu ra: select, group by...
+            */
             
-            var product= products.Single(p=>p.Price==600);// neu co 2 cai 400 phat sinh loi
-            //Console.WriteLine(product);
+            //lay ten cac sp
+            // var query= from p in products select p.Name;
+            // query.ToList().ForEach(x=>Console.WriteLine(x));
+            // foreach(var name in query){
+            //     Console.WriteLine(name);
+            // }
 
-            //TH ko muon phat sinh loi
-            var productDefault=products.SingleOrDefault(p=>p.Price==120);
-            //TH tim thay nhung nhieu loi
-    
-            // Console.WriteLine(productDefault);
-            
-            //Any tra ve true neu thoa man dk logic
-            var p=products.Any(p=>p.Price==700);
-            // Console.WriteLine(p);
-            //All tra ve bool neu thoa man cac dk logic
-            var pAll=products.All(p=>p.Price>0);
-            // Console.WriteLine(pAll);
+            //tra ve chuoi 
+            // var query=from p in products select $"{p.Name} {p.Price}";
+            // query.ToList().ForEach(name=>Console.WriteLine(name));
 
-            //Count
-            var pCount=products.Count(p=>p.Price>=200);
-            Console.WriteLine(pCount);
+            //tra ve phan tu phuc tap kieu vo danh 
+            // var query=from p in products select new{
+            //         Ten=p.Name,
+            //         Price=p.Price,
+            //         Abc="afe",
+            // };
+            // query.ToList().ForEach(x=>Console.WriteLine(x));
 
+            //Hay lay ra cac sp co price 400
+
+            // var query=from p in products 
+            //         where p.Price<400 
+            //         select new {
+            //             Ten=p.Name,
+            //             Price=p.Price,
+            //          };
+            // query.ToList().ForEach(p=>Console.WriteLine(p));
+            //Nhieu nguon nhieu from
+            //Gia <=500, mau xanh
+
+            // var query=from p in products 
+            //             from c in p.Colors
+            //         where p.Price<=500 && c=="Xanh"
+            //         orderby p.Price descending
+            //         select new {
+            //             Ten=p.Name,
+            //             Gia=p.Price,
+            //             CacMau=p.Colors,
+            //         };
+            // query.ToList().ForEach(p=>{
+            //     Console.WriteLine(p.Ten +" - "+p.Gia);
+            //     Console.WriteLine(string.Join(", ",p.CacMau));
+            // });
+
+
+            //Nhom sp theo gia
+        
+            // var query=from p in products 
+            //         group p by  p.Price;
+            // query.ToList().ForEach(group=>{
+            //     Console.WriteLine(group.Key);
+            //     group.ToList().ForEach(x=>Console.WriteLine(x));
+            // });
+
+
+            //into ket qua luu vao bien tam
+            // var query=from p in products 
+            //         group p by  p.Price into gr
+            //         orderby gr.Key
+            //         select gr;
+            // query.ToList().ForEach(group=>{
+            //     Console.WriteLine(group.Key);
+            //     group.ToList().ForEach(x=>Console.WriteLine(x));
+            // });
+
+        //     var query= from p in products 
+        //     group p by p.Price into gr
+        //     orderby gr.Key
+        //     let sl="So luong "+gr.Count()
+        //     select new {
+        //         Gia=gr.Key,
+        //         Cacsanpham=gr.ToList(),
+        //         SoLuong=sl,
+        //     };
+
+
+        //   query.ToList().ForEach(i=>{
+        //     Console.WriteLine(i.Gia);
+        //     Console.WriteLine(i.SoLuong);
+        //     i.Cacsanpham.ForEach(p=>Console.WriteLine(p));
+        //   });
+
+        //Join
+
+        // var query= from product in products join brand in brands on product.Brand equals brand.ID
+        // select new {
+        //     Ten=product.Name,
+        //     Gia=product.Price,
+        //     thuongHieu=brand.Name
+        // };
+        // query.ToList().ForEach(x=>{
+        //     Console.WriteLine($"{x.Ten,10} {x.thuongHieu,15} {x.Gia,5}");
+        // });
+
+
+        //TH lay trung
+        var query = from product in products join brand in brands on product.Brand equals brand.ID into t
+        from b in t.DefaultIfEmpty()
+        select new{
+           Ten=product.Name,
+            Gia=product.Price,
+            thuongHieu=(b!=null) ?b.Name :"Khong co thuong hieu"
+        };
+        query.ToList().ForEach(x=>{
+            Console.WriteLine($"{x.Ten,10} {x.thuongHieu,15} {x.Gia,5}");
+        });
         }
     }
 }
